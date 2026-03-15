@@ -9,6 +9,7 @@ namespace SnakeGame.Manager
         [SerializeField] private Transform _mainCamera;
         [SerializeField] private GridMapManager _gridMapManager;
         [SerializeField] private SnakeController _snakeController;
+        [SerializeField] private FoodSpawner _foodSpawner;
 
         [Header("Game Settings")]
         [SerializeField] private float _moveDelay = 0.1f;
@@ -29,7 +30,8 @@ namespace SnakeGame.Manager
             Initialize();
             SetupGridMap();
             SetupSnake();
-
+            SetupFood();
+            
             OnGameStart();
         }
 
@@ -68,6 +70,11 @@ namespace SnakeGame.Manager
         private void SetupSnake()
         {
             _snakeController.Spawn(_snakeInitPosition, _snakeInitDirection);
+        }
+
+        private void SetupFood()
+        {
+            _foodSpawner.SpawnFood();
         }
 
         private void OnGameStart()
