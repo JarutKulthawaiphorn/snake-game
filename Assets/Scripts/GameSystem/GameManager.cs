@@ -31,16 +31,16 @@ namespace SnakeGame.Manager
             SetupGridMap();
             SetupSnake();
             SetupFood();
-            
+
             OnGameStart();
         }
 
         private void Update()
         {
             if (_isGameStarted == false) return;
-            
+
             _moveTimer -= Time.deltaTime;
-            
+
             if (_moveTimer <= 0)
             {
                 Vector2 nextPosition = _snakeController.GetNextPosition();
@@ -49,8 +49,7 @@ namespace SnakeGame.Manager
                     OnGameOver();
                     return;
                 }
-                _snakeController.Move();
-                _moveTimer = _moveDelay;
+                MoveSnake();
             }
         }
         #endregion
@@ -84,7 +83,7 @@ namespace SnakeGame.Manager
 
             _moveTimer = _moveDelay;
         }
-        
+
         private void OnGameOver()
         {
             _snakeInputManager.DisableSnakeInput();
@@ -96,6 +95,13 @@ namespace SnakeGame.Manager
         private void HandleInput(Vector2 direction)
         {
             _snakeController.SetDirection(direction);
+            MoveSnake();
+        }
+
+        private void MoveSnake()
+        {
+            _snakeController.Move();
+            _moveTimer = _moveDelay;
         }
 
         private void CenterCamera()

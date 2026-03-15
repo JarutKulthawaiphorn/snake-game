@@ -32,7 +32,10 @@ namespace SnakeGame.Manager
         #region Private Methods
         private void OnPerformedMove(InputAction.CallbackContext context)
         {
-            _onMove?.Invoke(context.ReadValue<Vector2>());
+            Vector2 input = context.ReadValue<Vector2>();
+            if (input.magnitude != 1) return;
+
+            _onMove?.Invoke(input);
         }
         #endregion
     }
