@@ -17,34 +17,57 @@ namespace SnakeGame.Manager
         #endregion
 
         #region  Private Fields
+        private float _moveTimer = 0f;
         private Vector2 _gridMapSize = Vector2.zero;
-        // Create InputManager if needed for handling user input
+        private SnakeInputManager _snakeInputManager = null;
+        private bool _isGameStarted = false;
         #endregion
 
         #region Lifecycle Methods
         private void Start()
         {
+            _snakeInputManager = new SnakeInputManager();
+            
             _gridMapSize = _gridMapManager.GenerateGridMap();
             CenterCamera();
 
             _snakeController.Spawn(_snakeInitPosition, _snakeInitDirection);
+
+            OnGameStart();
         }
 
         private void Update()
         {
             // Handle snake movement based on the move delay
-            if (Time.time >= _moveDelay)
+            if (_isGameStarted == false) return;
+            
+            _moveTimer -= Time.deltaTime;
+            
+            if (_moveTimer <= 0)
             {
                 _snakeController.Move();
-                _moveDelay = Time.time + _moveDelay;
+                _moveTimer = _moveDelay;
             }
         }
         #endregion
 
         #region Private Methods
-        private void HandleInput()
+        private void OnGameStart()
         {
-            // Implement input handling logic to change snake direction
+            _snakeInputManager.EnableSnakeInput(HandleInput);
+            _isGameStarted = true;
+            _moveTimer = _moveDelay;
+        }
+        
+        private void OnGameOver()
+        {
+            _snakeInputManager.DisableSnakeInput();
+            // Additional game over logic (e.g., show game over screen, reset game, etc.)
+        }
+
+        private void HandleInput(Vector2 direction)
+        {
+            _snakeController.SetDirection(direction);
             // Example: Use arrow keys or WASD to set the snake's direction
         }
 
