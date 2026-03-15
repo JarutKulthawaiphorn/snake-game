@@ -25,7 +25,7 @@ namespace SnakeGame.Manager
             {
                 _spawnedFood = Instantiate(_foodPrefab, _foodParent);
             }
-            
+
             _spawnedFood.SetPosition(_initFoodPosition);
         }
 
@@ -35,6 +35,13 @@ namespace SnakeGame.Manager
             {
                 _spawnedFood.SetPosition(position);
             }
+        }
+
+        public bool IsFoodAtPosition(Vector2 position)
+        {
+            if (_spawnedFood == null) return false;
+
+            return _spawnedFood.Position == position;
         }
         #endregion
     }

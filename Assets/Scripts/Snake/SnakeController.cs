@@ -30,11 +30,18 @@ namespace SnakeGame.Behaviour
             }
         }
 
+        public void ResetSnake()
+        {
+            foreach (var segment in _snakeSegmentList)
+            {
+                Destroy(segment.gameObject);
+            }
+            _snakeSegmentList.Clear();
+        }
+
         public void SetDirection(Vector2 direction)
         {
-            bool isValidDirection = direction != -_currentDirection;
-
-            if (isValidDirection)
+            if (IsValidDirection(direction))
             {
                 _currentDirection = direction;
             }
@@ -62,6 +69,11 @@ namespace SnakeGame.Behaviour
             SnakeObject newSegment = Instantiate(_snakePrefab, initPosition, Quaternion.identity, transform);
             newSegment.name = "SnakeSegment " + _snakeSegmentList.Count;
             _snakeSegmentList.Add(newSegment);
+        }
+
+        public bool IsValidDirection(Vector2 direction)
+        {
+            return direction != -_currentDirection && direction != _currentDirection;
         }
 
         public bool IsPositionOnSnake(Vector2 position)

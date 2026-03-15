@@ -1,3 +1,4 @@
+using System.Collections.Generic;
 using UnityEngine;
 
 namespace SnakeGame.Manager
@@ -17,6 +18,14 @@ namespace SnakeGame.Manager
         [SerializeField] private int _height;
         #endregion
 
+        #region Public Properties
+        public List<Vector2> TilePositionList => _tilePositionList;
+        #endregion
+
+        #region Private Fields
+        private List<Vector2> _tilePositionList = new List<Vector2>();
+        #endregion
+
         #region  Public Methods
         public Vector2 GenerateGridMap()
         {
@@ -27,6 +36,7 @@ namespace SnakeGame.Manager
                     SpriteRenderer tile = Instantiate(_tilePrefab, new Vector3(x, y, 0), Quaternion.identity, _gridMapContainer);
                     tile.color = (x + y) % 2 == 0 ? _whiteTileColor : _blackTileColor;
                     tile.name = $"GridTile {x}, {y}";
+                    _tilePositionList.Add(new Vector2(x, y));
                 }
             }
 
