@@ -30,18 +30,7 @@ namespace SnakeGame.Manager
                 }
             }
 
-            CenterGridMap();
             return new Vector2(_width, _height);
-        }
-        #endregion
-
-        #region  Private Methods
-        private void CenterGridMap()
-        {
-            //Center the grid map in the scene
-            float offsetX = (_width - 1) / 2f;
-            float offsetY = (_height - 1) / 2f;
-            _gridMapContainer.position = new Vector3(-offsetX, -offsetY, 0);
         }
         #endregion
     }
