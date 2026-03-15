@@ -42,7 +42,7 @@ namespace SnakeGame.Manager
             if (_moveTimer <= 0)
             {
                 Vector2 nextPosition = _snakeController.GetNextPosition();
-                if (_gridMapManager.IsPositionInsideGrid(nextPosition) == false)
+                if (_gridMapManager.IsPositionInsideGrid(nextPosition) == false || _snakeController.IsPositionOnSnake(nextPosition))
                 {
                     OnGameOver();
                     return;

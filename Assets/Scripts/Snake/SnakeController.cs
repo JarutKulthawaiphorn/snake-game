@@ -64,16 +64,16 @@ namespace SnakeGame.Behaviour
             _snakeSegmentList.Add(newSegment);
         }
 
-        public List<Vector2> GetSnakePositionList()
+        public bool IsPositionOnSnake(Vector2 position)
         {
-            List<Vector2> positionList = new List<Vector2>();
-
             foreach (var segment in _snakeSegmentList)
             {
-                positionList.Add(segment.Position);
+                if (segment.Position == position)
+                {
+                    return true;
+                }
             }
-
-            return positionList;
+            return false;
         }
         #endregion
     }

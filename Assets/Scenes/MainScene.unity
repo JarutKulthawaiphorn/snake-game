@@ -483,7 +483,7 @@ MonoBehaviour:
   _mainCamera: {fileID: 519420032}
   _gridMapManager: {fileID: 253836967}
   _snakeController: {fileID: 325585656}
-  _moveDelay: 0.1
+  _moveDelay: 0.2
   _snakeInitPosition: {x: 6, y: 7}
   _snakeInitDirection: {x: 1, y: 0}
 --- !u!1 &1234954267
