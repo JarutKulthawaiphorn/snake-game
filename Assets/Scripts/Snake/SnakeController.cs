@@ -23,7 +23,7 @@ namespace SnakeGame.Behaviour
             SnakeEntity headSegment = Instantiate(_snakePrefab, initPosition, Quaternion.identity, transform);
             headSegment.name = "SnakeHead";
             _snakeSegmentList.Add(headSegment);
-            
+
             for (int i = 1; i < _initSize; i++)
             {
                 Grow();
@@ -40,14 +40,18 @@ namespace SnakeGame.Behaviour
             }
         }
 
+        public Vector2 GetNextPosition()
+        {
+            return _snakeSegmentList[0].transform.localPosition + (Vector3)_currentDirection;
+        }
+
         public void Move()
         {
-            Vector3 nextPosition = _snakeSegmentList[0].transform.localPosition + (Vector3)_currentDirection;
             for (int i = _snakeSegmentList.Count - 1; i > 0; i--)
             {
                 _snakeSegmentList[i].SetPosition(_snakeSegmentList[i - 1].Position);
             }
-            _snakeSegmentList[0].SetPosition(nextPosition);
+            _snakeSegmentList[0].SetPosition(GetNextPosition());
         }
 
         public void Grow()

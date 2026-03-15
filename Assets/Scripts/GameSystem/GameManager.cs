@@ -26,25 +26,27 @@ namespace SnakeGame.Manager
         #region Lifecycle Methods
         private void Start()
         {
-            _snakeInputManager = new SnakeInputManager();
-            
-            _gridMapSize = _gridMapManager.GenerateGridMap();
-            CenterCamera();
-
-            _snakeController.Spawn(_snakeInitPosition, _snakeInitDirection);
+            Initialize();
+            SetupGridMap();
+            SetupSnake();
 
             OnGameStart();
         }
 
         private void Update()
         {
-            // Handle snake movement based on the move delay
             if (_isGameStarted == false) return;
             
             _moveTimer -= Time.deltaTime;
             
             if (_moveTimer <= 0)
             {
+                Vector2 nextPosition = _snakeController.GetNextPosition();
+                if (_gridMapManager.IsPositionInsideGrid(nextPosition) == false)
+                {
+                    OnGameOver();
+                    return;
+                }
                 _snakeController.Move();
                 _moveTimer = _moveDelay;
             }
@@ -52,23 +54,41 @@ namespace SnakeGame.Manager
         #endregion
 
         #region Private Methods
+        private void Initialize()
+        {
+            _snakeInputManager = new SnakeInputManager();
+        }
+
+        private void SetupGridMap()
+        {
+            _gridMapSize = _gridMapManager.GenerateGridMap();
+            CenterCamera();
+        }
+
+        private void SetupSnake()
+        {
+            _snakeController.Spawn(_snakeInitPosition, _snakeInitDirection);
+        }
+
         private void OnGameStart()
         {
             _snakeInputManager.EnableSnakeInput(HandleInput);
             _isGameStarted = true;
+
             _moveTimer = _moveDelay;
         }
         
         private void OnGameOver()
         {
             _snakeInputManager.DisableSnakeInput();
-            // Additional game over logic (e.g., show game over screen, reset game, etc.)
+            _isGameStarted = false;
+
+            Debug.Log("Game Over!");
         }
 
         private void HandleInput(Vector2 direction)
         {
             _snakeController.SetDirection(direction);
-            // Example: Use arrow keys or WASD to set the snake's direction
         }
 
         private void CenterCamera()

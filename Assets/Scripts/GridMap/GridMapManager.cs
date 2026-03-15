@@ -32,6 +32,11 @@ namespace SnakeGame.Manager
 
             return new Vector2(_width, _height);
         }
+
+        public bool IsPositionInsideGrid(Vector2 position)
+        {
+            return position.x >= 0 && position.x < _width && position.y >= 0 && position.y < _height;
+        }
         #endregion
     }
 }
