@@ -51,10 +51,13 @@ namespace SnakeGame.Manager
         #region Public Methods
         public void Initialize()
         {
+            _isGameStarted = false;
+
+            _snakeController.Initialize();
+            _snakeInputManager = new SnakeInputManager();
+
             SetupGridMap();
             SetupGameplay();
-
-            _snakeInputManager = new SnakeInputManager();
         }
 
         public void SetupGameplay()

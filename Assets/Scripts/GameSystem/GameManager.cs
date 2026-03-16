@@ -22,7 +22,6 @@ namespace SnakeGame.Manager
             Initialize();
             SetCallback();
             _uiManager.ShowMenuUI(_score, _highScore);
-            OnGameStart();
         }
         #endregion
 

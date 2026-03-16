@@ -11,16 +11,24 @@ namespace SnakeGame.Behaviour
         #endregion
 
         #region  Private Fields
+        private SnakeObjectPooler _snakeObjectPooler = null;
         private List<SnakeObject> _snakeSegmentList = new List<SnakeObject>();
         private Vector2 _currentDirection = Vector2.right;
         #endregion
 
         #region  Public Methods
+        public void Initialize()
+        {
+            _snakeObjectPooler = new SnakeObjectPooler(_snakePrefab, transform, _initSize);
+        }
+
         public void Spawn(Vector2 initPosition, Vector2 initDirection)
         {
+            ResetSnake();
             SetDirection(initDirection);
 
-            SnakeObject headSegment = Instantiate(_snakePrefab, initPosition, Quaternion.identity, transform);
+            SnakeObject headSegment = _snakeObjectPooler.GetObject();
+            headSegment.transform.position = initPosition;
             headSegment.name = "SnakeHead";
             _snakeSegmentList.Add(headSegment);
 
@@ -32,10 +40,7 @@ namespace SnakeGame.Behaviour
 
         public void ResetSnake()
         {
-            foreach (var segment in _snakeSegmentList)
-            {
-                Destroy(segment.gameObject);
-            }
+            _snakeObjectPooler.ReturnObjectList(_snakeSegmentList);
             _snakeSegmentList.Clear();
         }
 
