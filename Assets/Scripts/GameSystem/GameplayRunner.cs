@@ -115,7 +115,6 @@ namespace SnakeGame.Manager
             if (_snakeController.IsValidDirection(direction) == false || _isGameStarted == false) return;
 
             _snakeController.SetDirection(direction);
-            MoveSnake();
         }
 
         private void MoveSnake()

@@ -14,6 +14,7 @@ namespace SnakeGame.Behaviour
         private SnakeObjectPooler _snakeObjectPooler = null;
         private List<SnakeObject> _snakeSegmentList = new List<SnakeObject>();
         private Vector2 _currentDirection = Vector2.right;
+        private Vector2 _nextDirection = Vector2.right;
         #endregion
 
         #region  Public Methods
@@ -25,7 +26,8 @@ namespace SnakeGame.Behaviour
         public void Spawn(Vector2 initPosition, Vector2 initDirection)
         {
             ResetSnake();
-            SetDirection(initDirection);
+            _currentDirection = initDirection;
+            _nextDirection = initDirection;
 
             SnakeObject headSegment = _snakeObjectPooler.GetObject();
             headSegment.transform.position = initPosition;
@@ -48,17 +50,18 @@ namespace SnakeGame.Behaviour
         {
             if (IsValidDirection(direction))
             {
-                _currentDirection = direction;
+                _nextDirection = direction;
             }
         }
 
         public Vector2 GetNextPosition()
         {
-            return _snakeSegmentList[0].transform.localPosition + (Vector3)_currentDirection;
+            return _snakeSegmentList[0].transform.localPosition + (Vector3)_nextDirection;
         }
 
         public void Move()
         {
+            _currentDirection = _nextDirection;
             for (int i = _snakeSegmentList.Count - 1; i > 0; i--)
             {
                 _snakeSegmentList[i].SetPosition(_snakeSegmentList[i - 1].Position);
