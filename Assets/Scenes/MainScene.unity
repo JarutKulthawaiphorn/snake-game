@@ -788,7 +788,7 @@ MonoBehaviour:
   m_Intensity: 1
   m_LightVolumeIntensity: 1
   m_LightVolumeEnabled: 0
-  m_ApplyToSortingLayers: 00000000
+  m_ApplyToSortingLayers: 00000000ad6858f8
   m_LightCookieSprite: {fileID: 0}
   m_DeprecatedPointLightCookieSprite: {fileID: 0}
   m_LightOrder: 0
@@ -881,6 +881,7 @@ MonoBehaviour:
   m_EditorClassIdentifier: Assembly-CSharp::GameManager
   _mainCamera: {fileID: 519420032}
   _gameplayRunner: {fileID: 1108370005}
+  _uiManager: {fileID: 1291536967}
 --- !u!1 &720025429
 GameObject:
   m_ObjectHideFlags: 0
@@ -1365,6 +1366,7 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: Assembly-CSharp::SnakeGame.Manager.UIManager
   _menuUI: {fileID: 1313576719}
+  _gameStatUI: {fileID: 1905527974}
 --- !u!1 &1313576715
 GameObject:
   m_ObjectHideFlags: 0
@@ -1754,10 +1756,10 @@ Canvas:
   m_OverrideSorting: 0
   m_OverridePixelPerfect: 0
   m_SortingBucketNormalizedSize: 0
-  m_VertexColorAlwaysGammaSpace: 0
+  m_VertexColorAlwaysGammaSpace: 1
   m_AdditionalShaderChannelsFlag: 25
   m_UpdateRectTransformForStandalone: 0
-  m_SortingLayerID: 0
+  m_SortingLayerID: -128423763
   m_SortingOrder: 0
   m_TargetDisplay: 0
 --- !u!224 &1687357349

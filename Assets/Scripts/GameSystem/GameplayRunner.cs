@@ -1,3 +1,4 @@
+using System;
 using System.Collections.Generic;
 using SnakeGame.Behaviour;
 using UnityEngine;
@@ -19,6 +20,11 @@ namespace SnakeGame.Manager
 
         #region  Public Properties
         public Vector2 GridMapSize => _gridMapSize;
+        #endregion
+
+        #region Action Fields
+        private Action _onConsumeFood = null;
+        private Action _onGameOver = null;
         #endregion
 
         #region  Private Fields
@@ -46,8 +52,7 @@ namespace SnakeGame.Manager
         public void Initialize()
         {
             SetupGridMap();
-            SetupSnake();
-            SetupFood();
+            SetupGameplay();
 
             _snakeInputManager = new SnakeInputManager();
         }
@@ -72,6 +77,17 @@ namespace SnakeGame.Manager
             _isGameStarted = false;
 
             Debug.Log("Game Over!");
+            _onGameOver?.Invoke();
+        }
+
+        public void SetOnConsumeFoodCallback(Action onConsumeFood)
+        {
+            _onConsumeFood = onConsumeFood;
+        }
+
+        public void SetOnGameOverCallback(Action onGameOver)
+        {
+            _onGameOver = onGameOver;
         }
         #endregion
 
@@ -122,13 +138,14 @@ namespace SnakeGame.Manager
         {
             _snakeController.Grow();
             _foodSpawner.SetFoodPosition(GetRandomFoodPosition());
+            _onConsumeFood?.Invoke();
         }
 
         private Vector2 GetRandomFoodPosition()
         {
             List<Vector2> availablePositions = GetAvailablePositionList();
 
-            int randomIndex = Random.Range(0, availablePositions.Count);
+            int randomIndex = UnityEngine.Random.Range(0, availablePositions.Count);
             return availablePositions[randomIndex];
         }
 
