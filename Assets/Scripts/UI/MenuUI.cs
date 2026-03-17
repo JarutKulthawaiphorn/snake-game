@@ -20,12 +20,18 @@ namespace SnakeGame.UI
 
         public void SetScore(int score)
         {
-            _scoreNumber.text = score.ToString();
+            if (_scoreNumber != null)
+            {
+                _scoreNumber.text = score.ToString();
+            }
         }
 
         public void SetHighScore(int highScore)
         {
-            _highScoreNumber.text = highScore.ToString();
+            if (_highScoreNumber != null)
+            {
+                _highScoreNumber.text = highScore.ToString();
+            }
         }
 
         public void SetStartButtonListener(UnityAction onClickAction)

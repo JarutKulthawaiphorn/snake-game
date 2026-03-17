@@ -56,7 +56,7 @@ namespace SnakeGame.Behaviour
 
         public Vector2 GetNextPosition()
         {
-            return _snakeSegmentList[0].transform.localPosition + (Vector3)_nextDirection;
+            return _snakeSegmentList[0].transform.position + (Vector3)_nextDirection;
         }
 
         public void Move()
@@ -74,7 +74,8 @@ namespace SnakeGame.Behaviour
             SnakeObject lastSegment = _snakeSegmentList[_snakeSegmentList.Count - 1];
             Vector2 initPosition = lastSegment.transform.position - (Vector3)_currentDirection;
 
-            SnakeObject newSegment = Instantiate(_snakePrefab, initPosition, Quaternion.identity, transform);
+            SnakeObject newSegment = _snakeObjectPooler.GetObject();
+            newSegment.SetPosition(initPosition);
             newSegment.name = "SnakeSegment " + _snakeSegmentList.Count;
             _snakeSegmentList.Add(newSegment);
         }

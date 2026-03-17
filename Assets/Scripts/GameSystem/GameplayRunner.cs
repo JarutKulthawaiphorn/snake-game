@@ -146,6 +146,7 @@ namespace SnakeGame.Manager
         private Vector2 GetRandomFoodPosition()
         {
             List<Vector2> availablePositions = GetAvailablePositionList();
+            if (availablePositions.Count == 0) return Vector2.zero;
 
             int randomIndex = UnityEngine.Random.Range(0, availablePositions.Count);
             return availablePositions[randomIndex];
