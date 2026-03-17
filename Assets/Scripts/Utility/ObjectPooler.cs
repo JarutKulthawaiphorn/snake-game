@@ -59,13 +59,7 @@ namespace SnakeGame.Utility
         public List<T> GetAllObjects()
         {
             List<T> objectsToReturn = new List<T>(_poolList);
-
-            for (int i = _poolList.Count - 1; i >= 0; i--)
-            {
-                objectsToReturn.Add(_poolList[i]);
-                _poolList.RemoveAt(i);
-            }
-
+            _poolList.Clear();
             return objectsToReturn;
         }
 
